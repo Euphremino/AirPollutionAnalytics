@@ -1,0 +1,14 @@
+# Datasets
+dataset/raw/*.csv
+dataset/cleaned/*.csv
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+.venv/
+venv/
+
+# Environment
+.env
