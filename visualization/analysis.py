@@ -248,4 +248,45 @@ plt.ylabel("Latitude")
 plt.tight_layout()
 plt.show()
 
+# ============================================================
+# 5. HEATMAP DE LA POLLUTION
+# ============================================================
+
+print("\n" + "=" * 60)
+print("HEATMAP : PM2.5 PAR MOIS ET PAR HEURE")
+print("=" * 60)
+
+# Créer le mois
+df["mois"] = df["time"].dt.month
+
+# Créer l'heure
+df["heure"] = df["time"].dt.hour
+
+# Calculer la moyenne de PM2.5
+pm25_heatmap = (
+    df.groupby(["mois", "heure"])["pm25"]
+    .mean()
+    .unstack()
+)
+
+# ============================================================
+# CRÉATION DE LA HEATMAP
+# ============================================================
+
+plt.figure(figsize=(14, 7))
+
+sns.heatmap(
+    pm25_heatmap,
+    annot=True,
+    fmt=".1f",
+    cmap="YlOrRd"
+)
+
+plt.title("Concentration moyenne de PM2.5 par mois et par heure")
+plt.xlabel("Heure de la journée")
+plt.ylabel("Mois")
+
+plt.tight_layout()
+plt.show()
+
 print("\nAnalyse terminée.")
