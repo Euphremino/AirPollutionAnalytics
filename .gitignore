@@ -12,3 +12,4 @@ venv/
 
 # Environment
 .env
+dataset/tera_analytics_data.csv
