@@ -11,7 +11,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 INPUT_FILE = (
     BASE_DIR
     / "dataset"
-    / "raw"
     / "tera_analytics_data.csv"
 )
 
