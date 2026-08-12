@@ -17,3 +17,14 @@ python visualization/plot_satellite.py
 3) Adapter les colonnes : le script cherche par défaut `longitude`, `latitude`, `pm25`.
 
 4) Pour sauvegarder l'image, appeler `plot_pm25_on_satellite(..., save_path='out.png')`.
+
+Dashboard interactif
+--------------------
+
+Lancer le dashboard Streamlit :
+
+```bash
+streamlit run visualization/dashboard.py
+```
+
+Le tableau de bord permet d'uploader un CSV, de choisir les colonnes longitude/latitude/PM et d'ajuster le niveau de zoom.
