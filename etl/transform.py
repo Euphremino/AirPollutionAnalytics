@@ -11,6 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 INPUT_FILE = (
     BASE_DIR
     / "dataset"
+    / "raw"
     / "tera_analytics_data.csv"
 )
 
@@ -59,9 +60,6 @@ def transform_data(df):
     # --------------------------------------------------------
     # 2. Nettoyage des colonnes texte
     # --------------------------------------------------------
-
-    # id_install contient des valeurs comme H9V2.
-    # Il doit donc rester une chaîne de caractères.
 
     df["id_install"] = (
         df["id_install"]

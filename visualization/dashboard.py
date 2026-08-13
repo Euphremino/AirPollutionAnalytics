@@ -1,3 +1,9 @@
+import sys
+import pathlib
+# Ensure the project root (parent of visualization/) is always on sys.path,
+# regardless of how Streamlit resolves the working directory.
+sys.path.insert(0, str(pathlib.Path(__file__).parent.parent))
+
 import streamlit as st
 from visualization.plotting import make_geodataframe, plot_pm25_figure
 from visualization.analysis_viz import (
@@ -106,12 +112,58 @@ def main():
 
 	# Map
 	with tabs[5]:
-		st.header('Carte satellite')
+		# ── Dashboard card header ─────────────────────────────────────────
+		st.markdown(
+			"""
+			<style>
+			.map-card {
+				background: #161b22;
+				border: 1px solid #2a3444;
+				border-radius: 12px;
+				padding: 0;
+				overflow: hidden;
+				box-shadow: 0 4px 24px rgba(0,0,0,0.45);
+				margin-top: 4px;
+			}
+			.map-header {
+				padding: 14px 20px 10px 20px;
+				border-bottom: 1px solid #2a3444;
+				background: #0e1117;
+			}
+			.map-title {
+				font-size: 1.15rem;
+				font-weight: 700;
+				color: #e8edf4;
+				margin: 0 0 2px 0;
+				letter-spacing: 0.01em;
+			}
+			.map-subtitle {
+				font-size: 0.78rem;
+				color: #6e7d94;
+				margin: 0;
+			}
+			.map-body {
+				padding: 0;
+				margin: 0;
+				line-height: 0;
+			}
+			/* Remove Streamlit's default figure padding inside the card */
+			.map-body .stPlot > div { margin: 0 !important; padding: 0 !important; }
+			</style>
+			<div class="map-card">
+			  <div class="map-header">
+				<p class="map-title">🛰&nbsp; Carte satellite — Qualité de l'air</p>
+				<p class="map-subtitle">Visualisation géographique des mesures selon la concentration de la particule sélectionnée.</p>
+			  </div>
+			</div>
+			""",
+			unsafe_allow_html=True,
+		)
 		try:
 			gdf = make_geodataframe(df, lon_col=lon_col, lat_col=lat_col)
-			st.write(f'Points to plot: {len(gdf)}')
+			st.caption(f'📍 {len(gdf):,} points de mesure localisés')
 			fig = plot_pm25_figure(gdf, pm_col=pm_col, zoom=zoom)
-			st.pyplot(fig)
+			st.pyplot(fig, use_container_width=True)
 		except Exception as e:
 			st.error('Map plotting failed')
 			st.exception(e)
